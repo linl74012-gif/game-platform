@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "title": "クリックゲーム",
+    "description": "10秒間クリックするだけの簡単ゲーム",
+    "thumbnail": "/click.png",
+    "url": "/games/click/index.html"
+  },
+  {
+    "id": 1765621809213,
+    "title": "",
+    "description": "",
+    "thumbnail": "/sample.png",
+    "url": "/game"
+  }
+]
