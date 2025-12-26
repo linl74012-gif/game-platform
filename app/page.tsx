@@ -1,51 +1,43 @@
-import Link from "next/link";
-import games from "@/data/games.json";
+"use client";
+
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { createClient } from "@supabase/supabase-js";
+
+import { games, Game } from "./lib/games";
+import Link from "next/link"
+import LoginButton from "./components/LoginButton";
 
 export default function HomePage() {
   return (
-    <main className="p-6 max-w-5xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6">
-        ゲームプラットフォーム
-      </h1>
+    <div className="p-6">
+      <LoginButton />
+  <h1 className="text-2xl font-bold mb-6">Latest Games</h1>
 
-      <Link
-        href="/upload"
-        className="inline-block mb-6 text-blue-600 hover:underline"
-      >
-        ゲームを投稿する
-      </Link>
+  <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    {games.map((game) => (
+  <Link
+    key={game.id}
+    href={`/game/${game.id}`}
+    className="block bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+  >
+    <img
+      src={game.thumbnail}
+      alt={game.title}
+      className="w-full h-48 object-cover"
+    />
 
-      <h2 className="text-xl font-semibold mb-4">
-        投稿されたゲーム
+    <div className="p-4">
+      <h2 className="font-semibold text-lg mb-1">
+        {game.title}
       </h2>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        {games.map((game) => (
-          <Link
-            key={game.id}
-            href={`/game/${game.id}`}
-            className="block rounded-lg border bg-white overflow-hidden
-                       hover:shadow-lg transition-shadow"
-          >
-            {/* サムネイル */}
-            <img
-              src={game.thumbnail}
-              alt={game.title}
-              className="w-full h-40 object-cover"
-            />
-
-            {/* テキスト */}
-            <div className="p-4">
-              <h3 className="text-lg font-bold mb-1">
-                {game.title}
-              </h3>
-              <p className="text-sm text-gray-600">
-                {game.description}
-              </p>
-            </div>
-          </Link>
-        ))}
-      </div>
-    </main>
+      <p className="text-sm text-gray-600 line-clamp-2">
+        {game.description}
+      </p>
+    </div>
+  </Link>
+))}
+  </div>
+</div>
   );
 }

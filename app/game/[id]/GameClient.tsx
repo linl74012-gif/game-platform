@@ -16,7 +16,13 @@ export default function GameClient({ game }: { game: Game }) {
   const router = useRouter();
 
   return (
-    <main className={`p-6 ${isFull ? "fixed inset-0 bg-black z-50" : ""}`}>
+    <main
+  className={`${
+    isFull
+      ? "fixed inset-0 bg-black z-50 p-4"
+      : "max-w-5xl mx-auto p-6"
+  }`}
+>
       <div className="flex justify-between items-center mb-4">
         {!isFull && (
           <button
@@ -27,7 +33,13 @@ export default function GameClient({ game }: { game: Game }) {
           </button>
         )}
 
-        <h1 className="text-2xl font-bold text-white">{game.title}</h1>
+        <h1
+  className={`text-2xl font-bold ${
+    isFull ? "text-white" : "text-gray-900"
+  }`}
+>
+  {game.title}
+</h1>
 
         <button
           onClick={() => setIsFull(!isFull)}
@@ -39,13 +51,19 @@ export default function GameClient({ game }: { game: Game }) {
 
       <iframe
         src={game.url}
-        className={`w-full ${isFull ? "h-[100vh]" : "h-[600px]"} border`}
+        className={`w-full ${
+  isFull ? "h-[100vh]" : "h-[600px]"
+} rounded-lg border`}
         allow="fullscreen"
       />
 
       {!isFull && (
-        <p className="mt-4 text-gray-700">{game.description}</p>
-      )}
+  <div className="mt-6 bg-white rounded-xl p-5 shadow">
+    <p className="text-gray-700 leading-relaxed">
+      {game.description}
+    </p>
+  </div>
+)}
     </main>
   );
 }
